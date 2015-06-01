@@ -16,7 +16,7 @@ $sender  = 'info@svgamestore.com'; // for SMTP FROM:<> command
 
 
 // do the validation  
-$result =  validateEmailSmtp($email, $probe_address="", $debug=false);  
+$result =  validateEmailSmtp($email, $sender, true);  
 // view results  
 
 echo var_dump($result);;  
