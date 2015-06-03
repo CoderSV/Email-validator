@@ -1,0 +1,1390 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>Template Documentation Template</title>
+	<!-- Framework CSS -->
+	<link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+	<!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+	<style type="text/css" media="screen">
+		p, table, hr, .box { margin-bottom:25px; }
+		.box p { margin-bottom:10px; }
+		pre { background-color:#fafafa; color:#111; padding:10px; border:1px solid #ddd; overflow:auto}
+		code { background-color:#fafafa; padding:0 3px; border:1px dotted #aaa;font-size:.9em;}
+	</style>
+</head>
+
+
+<body>
+	<div class="container">
+	
+		<h3 class="center alt">&ldquo;Minibots.class.php&rdquo; Documentation by &ldquo;Giulio Pons&rdquo;</h3>
+		
+		<hr>
+		
+		<h1 class="center">&ldquo;Minibots.php.class v.3.3&rdquo;</h1>
+		
+		<div class="borderTop">
+			<div class="span-6 colborder info prepend-1">
+				<p class="prepend-top">
+					<strong>
+					Updated: 12/12/2013<br>
+					By: Giulio Pons<br>
+					Email: <a href="mailto:pons@rockit.it">pons@rockit.it</a>
+					</strong>
+				</p>
+			</div><!-- end div .span-6 -->		
+	
+			<div class="span-12 last">
+				<p class="prepend-top append-0">Thank you for purchasing my theme. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form <a href="http://codecanyon.net/user/ginoplusio">here</a>. Thanks so much!</p>
+			</div>
+		</div><!-- end div .borderTop -->
+		
+		<hr>
+		
+		<h2 id="toc" class="alt">Table of Contents</h2>
+		<ol class="alpha">
+			<li><a href="#intro">Introduction, what are bots</a></li>
+			<li><a href="#advice">Be careful and use cache</a></li>
+			<li>Methods
+				<ul>
+					<li><a href="#getIP">getIP()</a></li>
+					<li><a href="#ipToGeo">ipToGeo($ip="")</a></li>
+					<li><a href="#copyFile">copyFile($url,$filename)</a></li>
+					<li><a href="#doSpelling">doSpelling($q)</a></li>
+					<li><a href="#doShortURL">doShortURL($longUrl)</a></li>
+					<li><a href="#doShortURLDecode">doShortURLDecode($url)</a></li>
+					<li><a href="#checkMp3">checkMp3($url)</a></li>
+					<li><a href="#url_exists">url_exists($url)</a></li>
+					<li><a href="#doSMTPValidation">doSMTPValidation($email, $from_address="", $debug=false)</a></li>
+					<li><a href="#getUrlInfo">getUrlInfo($url,$maximages=5,$maxkbimg=10)</a></li>
+					<li><a href="#getVideoUrlInfo">getVideoUrlInfo($url)</a></li>
+					<li><a href="#getVimeoInfo">getVimeoInfo($id)</a></li>
+					<li><a href="#readFacebookCounters">readFacebookCounters($url)</a></li>
+					<li><a href="#readTwitterCounter">readTwitterCounter($url)</a></li>
+					<li><a href="#readGooglePlusCounter">readGooglePlusCounter($url)</a></li>
+					<li><a href="#wikiDefinition">wikiDefinition($s,$wikilang="en")</a></li>
+					<li><a href="#googleSuggestKeywords">googleSuggestKeywords($k)</a></li>
+					<li><a href="#getLatLong">getLatLong($address)</a></li>
+					<li><a href="#getExchangeRateFromTo">getExchangeRateFromTo($from,$to)</a></li>
+					<li><a href="#getImage">getImage($key)</a></li>
+					<li><a href="#notifyNma">notifyNma($apikey,$title,$text,$link="",$application="minibots")</a></li>
+					<li><a href="#pingomatic">pingomatic($title,$url,$feed="")</a></li>
+					<li><a href="#getInstagramPics">getInstagramPics($user)</a></li>
+					<li><a href="#twitterInfo">twitterInfo($nick)</a></li>
+					<li><a href="#getPage">getPage($url)</a></li>
+					<li><a href="#findLinks">findLinks($url, $web_page, $FOLLOW_EXTERNAL=false, $SKIP_EXTENSIONS="")</a></li>
+					<li><a href="#findEmails">findEmails($page)</a></li>
+					<li><a href="#makeabsolute">makeabsolute($url,$link)</a></li>
+					<li><a href="#attr">attr($s,$attrname)</a></li>
+					<li><a href="#getInstagramPic">getInstagramPic($url)</a></li>
+					<li><a href="#getGravatar">getGravatar( $email, $s = 80, $d = 'mm' )</a></li>
+					<li><a href="#getLinkedinCounter">getLinkedinCounter($url)</a></li>
+					<li><a href="#getPinterestCounter">getPinterestCounter($url)</a></li>
+					<li><a href="#getGoogleBackLinks">getGoogleBackLinks($domain)</a></li>
+					<li><a href="#getGoogleIndexedPages">getGoogleIndexedPages($domain)</a></li>
+					<li><a href="#getImageGoogle">getImageGoogle($k)</a></li>
+				</ul>
+			</li>
+			<li><a href="#history">History version</a></li>
+		</ol>
+		
+		<hr>
+
+<h3 id="intro"><strong>A) Introduction, what are bots</strong> - <a href="#toc">top</a></h3>
+<p><code>Bots</code> are small spiders/crawlers that goes out on internet and retrieves informations and data. With bots you can make very useful things, but bots and spider should be used carefully, because a bad use of them can cause problems to web sites. When you use bots <u>you always must understand what you're doing</u> and, for example, you must always delay calls.
+</p>
+<p>For example if you are going to use the <code>getUrlInfo</code> method to get informations on many URLs remember that each time you call getUrlInfo you are doing web calls to a server. So, if you make 1.000 calls fast inside a <code>for</code> loop (for example) you can cause a crash to the target server, or the target server could have filters to block and ban the server from which you're making calls. If you are on a shared server you can cause problems also to the other sites on the same server.<br/>
+So, before run your code with this bots, think to what bots are doing.
+</p>
+<p>
+Moreover: some of the methods of this class uses free APIs provided by the owner of the services, for example the Vimeo api to retrieve infos about a video, or Twitter APIs to retrieve infos about tweets, or Facebook graph APIs. Some other APIs used by these bots have usage limits (as one used in <code>ipToGeo</code> method) and I've reported links in this documentation to use them without policies problems.
+</p>
+<p>You can find a working demo with many of these webbots <a href="http://www.barattalo.it/demo/minibots.php">here</a>.
+<p>I sometimes post tutorials and updates about this class on my blog <a href="http://www.barattalo.it/">Barattalo.it</a>.
+
+<hr/>
+
+<h3 id="advice"><strong>B) Be careful and use cache</strong> - <a href="#toc">top</a></h3>
+<p>As I told you in the previous chapter, <code>Bots</code> are small programs that can cause problems and can also be used badly, for example to copy data. Since this data are public, it should not be a problem (counters of facebook, or meta description of pages that are made just for spiders, or your images on Instagram) but sometimes public data may have copyrights, so be careful before making your spiders and using this class.
+</p>
+<p>A big good suggestion is cache all the data. These bots may not use APIs and may work directly with the target site, for example, such as reading images from Instagram. Althought Instagram servers are very powerful you should always save locally the data you grab with bots, because you can cause problems to server and you can slow down your software. So, please, use cache everytime you can.
+</p>
+
+<hr/>
+
+
+<h3><strong>C) Methods</strong></h3>
+
+<h3 id="getIP"><strong>getIP()</strong> - <a href="#toc">top</a></h3>
+<p>The <code>getIP</code> method gets the IP address of the connected user:<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> none<br/>
+<b>output:</b> string with IP address<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+$ip = $mb->getIP();
+// example: 93.36.140.211
+?&gt;
+</pre>
+</p>
+<hr/>
+
+
+
+
+
+
+<h3 id="ipToGeo"><strong>ipToGeo($ip="")</strong> - <a href="#toc">top</a></h3>
+<p>The <code>ipToGeo</code> method retrieves geographic informations from IP address:<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$ip</code> is IP address, if not set use the IP of the connected user<br/>
+<b>output:</b> object with geograpic informations<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+$objData = $mb->ipToGeo();
+print_r($objData);
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+stdClass Object
+(
+    [ip] => 93.36.140.211
+    [country_code] => IT
+    [country_name] => Italy
+    [region_code] => 09
+    [region_name] => Lombardia
+    [city] => Monza
+    [zipcode] => 
+    [latitude] => 45.5833
+    [longitude] => 9.2667
+    [metro_code] => 
+    [areacode] => 
+)
+</pre>
+This method uses <a href="http://freegeoip.net">freegeoip.net</a> service and has a limit of API usage limited to 10,000 queries per hour. 
+</p>
+<hr/>
+
+
+
+
+
+
+<h3 id="copyFile"><strong>copyFile($url,$filename)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>copyFile</code> method save a remote url as a local file on your server:<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$url</code> is the remote address url, <code>$filename</code> is the local file to save<br/>
+<b>output:</b> true if success or false if fails<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+if($mb->copyFile("http://1.s3.envato.com/files/68503809/pons-80x80.jpeg","avatar.jpg")) {
+	echo "ok";
+} else {
+	echo "fails";
+}
+?&gt;
+</pre>
+Note: remember that you must have write permissions to save files locally.
+</p>
+<hr/>
+
+
+
+
+
+
+
+
+<h3 id="doSpelling"><strong>doSpelling($q)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>doSpelling</code> method search Google to find spelling suggestion:<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$q</code> is the mispelled string to check<br/>
+<b>output:</b> if found something returns corrected string else returns input <code>$q</code> string<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+$s = $mb->doSpelling("wikipezia");
+echo $s;
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+wikipedia
+</pre>
+Note: this method doesn't use an API provided by Google and should be used carefully, it queries Google search engine directly and parse html to find the correct spelling.
+</p>
+<hr/>
+
+
+
+
+
+
+
+
+<h3 id="doShortURL"><strong>doShortURL($longUrl)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>doShortURL</code> method uses tiny url api to make a short url from a long one:<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$longUrl</code> is the long URL you want to shorter<br/>
+<b>output:</b> shortened url<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+$s = $mb->doShortURL("http://www.dailybest.it/2013/03/05/vita-programmatore-gif-animate/");
+echo $s;
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+http://tinyurl.com/p5u8fjz
+</pre>
+Note: this method uses <a href="http://tinyurl.com">Tiny Url</a> services, free of use.
+</p>
+<hr/>
+
+
+
+
+
+
+
+
+<h3 id="doShortURLDecode"><strong>doShortURLDecode($url)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>doShortURLDecode</code> method converts back a small url to the original one. Since this function decodes redirects it works with all url shortener services such as goo.gl, tinyurl.com, bit.ly...<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$url</code> is the short URL you want to decode<br/>
+<b>output:</b> original url<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+$s = $mb->doShortURLDecode("http://tinyurl.com/p5u8fjz");
+echo $s;
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+http://www.dailybest.it/2013/03/05/vita-programmatore-gif-animate/
+</pre>
+</p>
+<hr/>
+
+
+
+
+
+
+
+
+<h3 id="checkMp3"><strong>checkMp3($url)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>checkMp3</code> method uses cURL to check if the file specified in the URL is an mp3 file with the audio/mpeg mime type. It uses only headers and doesn't download the mp3 file.<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$url</code> of the remote mp3 file<br/>
+<b>output:</b> true / false<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+if($mb->checkMp3("http://www.artintent.it/Kalimba.mp3")) {
+	echo "yes";
+} else {
+	echo "no";
+}
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+yes
+</pre>
+</p>
+<hr/>
+
+
+
+
+
+
+
+
+<h3 id="url_exists"><strong>url_exists($url)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>url_exists</code> method uses cURL to check if calling the specified URL returns a 200 OK response or not. This can be used to check if links exist.<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$url</code> of the remote link to test<br/>
+<b>output:</b> true / false<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+if($mb->url_exists("http://en.wikipedia.org/wiki/Barack_Obamaxxxxxxxxx")) {
+	echo "yes";
+} else {
+	echo "no";
+}
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+no
+</pre>
+</p>
+<hr/>
+
+
+
+
+
+
+
+
+<h3 id="doSMTPValidation"><strong>doSMTPValidation($email, $from_address="", $debug=false)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>doSMTPValidation</code> method performs an SMTP check of an email address by connecting to the mail server of the destination address and asking for the specified mailbox.
+<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$email</code> is the address to check, <code>$from_address</code> is the address of the sender, <code>$debug</code> is useful to understand how mail servers work.<br/>
+<b>output:</b> if email is ok returns true, else returns an array with two values, the first is the <code>$error</code> string from mail server and the second is the error number <code>$code</code>.<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+$res = $mb->doSMTPValidation("pons@rockit.it","noreply@barattalo.it",true);
+if ($res===true) echo "ok";
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+Checking server aspmx.l.google.com...
+Opening up socket to aspmx.l.google.com... Success!
+aspmx.l.google.com replied: 220 mx.google.com ESMTP l47si6425683eep.142 - gsmtp
+
+HELO barattalo.it
+(93 ms) 250 mx.google.com at your service
+MAIL FROM: &lt;barattalo.it&gt;
+(29 ms) 250 2.1.0 OK l47si6425683eep.142 - gsmtp
+RCPT TO: &lt;pons@rockit.it&gt;
+(406 ms) 250 2.1.5 OK l47si6425683eep.142 - gsmtp
+QUIT
+(30 ms) 221 2.0.0 closing connection l47si6425683eep.142 - gsmtp
+Succesful communication with aspmx.l.google.com, no hard errors, assuming OK
+
+ok
+</pre>
+Note: in the above example output the $debug=true prints out the conversation with mail server.<br/>
+Remember to specify the $from_address parameter since if not it's used the default of the server and could be wrong and rejected by mail servers.
+</p>
+<hr/>
+
+
+
+
+
+
+
+
+<h3 id="getUrlInfo"><strong>getUrlInfo($url,$maximages=5,$maxkbimg=10)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>getUrlInfo</code> method retrieves the specified page and scan it for informations.
+<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$url</code> is the web address to check, <code>$maximages</code> is the max number of images to find, <code>$maxkbimg</code> is a filter to skip images smaller than the specified amount of kilobytes.<br/>
+<b>output:</b> array of data<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+$res = $mb->getUrlInfo("http://piccsy.com/2013/10/cute-dog");
+print_r($res);
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+Array
+(
+    [keywords] => Piccsy, images, beautiful images, creative images, image discovery, discovery, browse, galleries, piccs
+    [description] => Beautiful, inspirational and creative images from Piccsy. Thousands of Piccs from all our streams, for you to browse, enjoy and share with a friend.
+    [title] => Piccsy :: cute dog
+    [favicon] => http://piccsy.com/favicon.ico
+    [images] => Array
+        (
+            [0] => http://img1.piccsy.com/cache/images/03/f1/69269c21__4500deb6_0ec40_cb4-post.jpg
+            [1] => http://piccsy.com/piccsy/images/layout/logo/e02f43.200x200.jpg
+        )
+
+)</pre>
+</p>
+<hr/>
+
+
+
+
+
+
+
+
+<h3 id="getVideoUrlInfo"><strong>getVideoUrlInfo($url)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>getVideoUrlInfo</code> method retrieves informations on Vimeo and YouTube videos.
+<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$url</code> is the vimeo video url or a yotube video url.<br/>
+<b>output:</b> array of data<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+$res = $mb->getVideoUrlInfo("https://vimeo.com/75976293");
+print_r($res);
+$res = $mb->getVideoUrlInfo("http://www.youtube.com/watch?v=KUVlrdfKowk");
+print_r($res);
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+Array
+(
+    [title] => AWAKEN on Vimeo
+    [description] => Fort Myers and Sanibel  Director/DP- CAMERON MICHAEL  COMPOSER: CHARLIE WAN  www.charliewan.com FACEBOOK: https://www.facebook.com/pages/Cameron-Michael-Productions/160014703460 Instagram:&hellip;
+    [thumb] => http://b.vimeocdn.com/ts/450/665/450665474_100.jpg
+)
+Array
+(
+    [title] => Lavoratooooooooori - YouTube
+    [description] => Non sapete che mettere di carino nell &#39;out of office quando andate in ferie?? Ecco...
+    [thumb] => http://img.youtube.com/vi/KUVlrdfKowk/1.jpg
+)
+</pre>
+</p>
+<hr/>
+
+
+
+
+
+
+
+<h3 id="getVimeoInfo"><strong>getVimeoInfo($id)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>getVimeoInfo</code> method retrieves extended informations on Vimeo video from the ID of the video.
+<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$url</code> is the vimeo video url or a yotube video url.<br/>
+<b>output:</b> array of data<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+$res = $mb->getVimeoInfo("75976293");
+print_r($res);
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+Array
+(
+    [id] => 75976293
+    [title] => AWAKEN
+    [description] => Fort Myers and Sanibel <br />
+Director/DP- CAMERON MICHAEL <br />
+COMPOSER: CHARLIE WAN <br />
+www.charliewan.com<br />
+FACEBOOK:<br />
+https://www.facebook.com/pages/Cameron-Michael-Productions/160014703460<br />
+Instagram: CAMERONMICHAEL<br />
+<br />
+SPONSORED BY:<br />
+Dynamic Perception http://www.dynamicperception.com/#oid=1006_1<br />
+GOODPENNY AND SUGARBOX DID AUDIO MASTER MIXING<br />
+Vocalist: Danielle Parente<br />
+Assistant Producer, Production Manager , and Production Assistant : Ryan Pinto<br />
+Field Producer, Key Grip: Max Soto<br />
+Co-Colorist/Compositor: Dan Boujoulian of GOODPENNY <br />
+Re-recording mixer- Lee Salevan of SUGARBOX <br />
+<br />
+Intern/PA: Jessie Bergau<br />
+SPONSORED BY:<br />
+Dynamic Perception http://www.dynamicperception.com/#oid=1006_1<br />
+Radian http://radian.alpinelaboratories.com/pages/radian<br />
+Emotimo http://emotimo.com<br />
+Support by :<br />
+Kessler Crane http://www.kesslercrane.com<br />
+<br />
+Shot on:<br />
+RED epic<br />
+Nikon and Canon SLR's
+    [url] => http://vimeo.com/75976293
+    [upload_date] => 2013-10-02 12:13:39
+    [mobile_url] => http://vimeo.com/m/75976293
+    [thumbnail_small] => http://b.vimeocdn.com/ts/450/665/450665474_100.jpg
+    [thumbnail_medium] => http://b.vimeocdn.com/ts/450/665/450665474_200.jpg
+    [thumbnail_large] => http://b.vimeocdn.com/ts/450/665/450665474_640.jpg
+    [user_id] => 9973169
+    [user_name] => Cameron Michael
+    [user_url] => http://vimeo.com/user9973169
+    [user_portrait_small] => http://b.vimeocdn.com/ps/377/229/3772290_30.jpg
+    [user_portrait_medium] => http://b.vimeocdn.com/ps/377/229/3772290_75.jpg
+    [user_portrait_large] => http://b.vimeocdn.com/ps/377/229/3772290_100.jpg
+    [user_portrait_huge] => http://b.vimeocdn.com/ps/377/229/3772290_300.jpg
+    [stats_number_of_likes] => 5156
+    [stats_number_of_plays] => 164916
+    [stats_number_of_comments] => 124
+    [duration] => 313
+    [width] => 1920
+    [height] => 1080
+    [tags] => florida, timelapse, nature, birds, dolphin, thunder, lightning, 4k, stars, skies
+    [embed_privacy] => anywhere
+)
+</pre>
+Note: please, refer to <a href="http://developer.vimeo.com/apis/simple">Vimeo developer site</a> if you need more informations on the usage of this free api.
+</p>
+<hr/>
+
+
+
+
+
+<h3 id="readFacebookCounters"><strong>readFacebookCounters($url)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>readFacebookCounters</code> method asks facebook graph api for informations on the counters associated to an URL, this can be used to retrieves number of likes and other informaations:<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$url</code> of the link to search for likes, shares, comments...<br/>
+<b>output:</b> array of data<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+$ar = $mb->readFacebookCounters("http://www.dailybest.it/2013/03/05/vita-programmatore-gif-animate/");
+print_r($ar);
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+Array
+(
+    [total] => 9007
+    [likes] => 4408
+    [shares] => 2427
+    [clicks] => 0
+    [comments] => 2172
+)
+</pre>
+</p>
+<hr/>
+
+
+
+
+
+<h3 id="readTwitterCounter"><strong>readTwitterCounter($url)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>readTwitterCounter</code> method asks twitter api for informations on the number of times an url has been twitted:<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$url</code> of the link to search for likes, shares, comments...<br/>
+<b>output:</b> integer<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+$ar = $mb->readTwitterCounter("http://www.dailybest.it/2013/03/05/vita-programmatore-gif-animate/");
+echo $ar;
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+216
+</pre>
+</p>
+<hr/>
+
+
+
+
+
+
+<h3 id="readGooglePlusCounter"><strong>readGooglePlusCounter($url)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>readGooglePlusCounter</code> method asks Google+ hidden api for informations on the number of +1s an url has received:<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$url</code> of the link to search for likes, shares, comments...<br/>
+<b>output:</b> integer<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+$ar = $mb->readGooglePlusCounter("http://www.dailybest.it/2013/03/05/vita-programmatore-gif-animate/");
+echo $ar;
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+341
+</pre>
+</p>
+<hr/>
+
+
+
+
+
+<h3 id="readGooglePlusCounter"><strong>wikiDefinition($s,$wikilang="en")</strong> - <a href="#toc">top</a></h3>
+<p>The <code>wikiDefinition</code> method asks wikipedia api for a definition of the term <code>$s</code>:<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$s</code> is the term to searc, <code>$wikilang</code> is the wikipedia language.<br/>
+<b>output:</b> integer<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+$ar = $mb->wikiDefinition("Barack Obama");
+print_r($ar);
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+Array
+(
+    [0] => Barack Obama
+    [1] => Barack Hussein Obama II (; born August 4, 1961) is the 44th and current President of the United States, the first African American to hold the office. 
+    [2] => http://en.wikipedia.org/wiki/Barack_Obama
+)
+</pre>
+Note: some terms appear only on locals wikipedia so you should use the appropriate language.
+</p>
+<hr/>
+
+
+
+
+
+
+<h3 id="googleSuggestKeywords"><strong>googleSuggestKeywords($k)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>googleSuggestKeywords</code> method asks google for keyword suggestions, the same way as google do in its search bar:<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$k</code> is the keyword typed<br/>
+<b>output:</b> array of suggestions<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+$ar = $mb->googleSuggestKeywords("Berlusconi");
+print_r($ar);
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+Array
+(
+    [0] => berlusconi
+    [1] => berlusconi news
+    [2] => berlusconi girlfriend
+    [3] => berlusconi scandal
+    [4] => berlusconi women
+    [5] => berlusconi net worth
+    [6] => berlusconi girls
+    [7] => berlusconi prostitute
+    [8] => berlusconi quotes
+    [9] => berlusconi prison
+)
+</pre>
+Note: this is an old api used by many toolbars on browsers. Probably is better read the <a href="https://developers.google.com/terms/">Google terms of use</a> before using it inside commercial works.
+</p>
+<hr/>
+
+
+
+
+
+
+<h3 id="getLatLong"><strong>getLatLong($address)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>getLatLong</code> decode an address to its latitude and longitude coordinates.<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$address</code> is the address you want to decode, well written<br/>
+<b>output:</b> array of coordinates with lat and long<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+$ar = $mb->getLatLong("piazza cadorna, milano, italy");
+print_r($ar);
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+Array
+(
+    [lat] => 45.467095999999998
+    [long] => 9.1808899999999998
+)</pre>
+Note: this bot calls <a href="http://maps.google.com">maps.google.com</a> with js output parameter and parses the result to find latitude and longitude. So this method doesn't use an API provided by Google and should be used carefully.
+
+</p>
+<hr/>
+
+
+<h3 id="getExchangeRateFromTo"><strong>getExchangeRateFromTo($from,$to)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>getExchangeRateFromTo</code> method uses data from European Central Bank to get exchange rates and can convert from a currency to another one passing throught EUR value.<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$from</code> is the currency you want to convert in <code>$to</code> currency<br/>
+<b>output:</b> the conversion rate if ok, an empty string if fails<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+$r = $mb->getExchangeRateFromTo("USD","EUR");
+echo "1 USD IS ".$r." EUR";
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+1 USD IS 0.74426912771658 EUR
+</pre>
+Note: this bot calls the free <a href="http://www.ecb.europa.eu">European Central Bank</a> services as described <a href="http://www.ecb.europa.eu/stats/exchange/eurofxref/html/index.en.html">here</a>.
+</p>
+
+<hr/>
+
+
+<h3 id="getImage"><strong>getImage($key)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>getImage</code> method find images from a keyword.<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$key</code> is the string to search for<br/>
+<b>output:</b> an array of urls of images matching <code>$key</code><br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+$ar = $mb->getImage("computer keyboard");
+print_r($ar);
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+
+Array
+(
+    [0] => http://media3.picsearch.com/is?hJOi8WBLsevnglWZ5zW__K1J1TVKg59qs_szxGcpC5s&height=228
+    [1] => http://media2.picsearch.com/is?7gzQkwC-gvdWX0BuHdrv8YkrrOrfkojttAT045BGcS8&height=256
+    [2] => http://media5.picsearch.com/is?bgoScf8F5y7h9gEL1I5sVAO2FzKRvRTcQsOWXLXYCAY&height=240
+    [3] => http://media5.picsearch.com/is?YQ2Nb11RXNglGIRc_9YZoirn6KJBEag9TDjKuAvYgPE&height=225
+    [4] => http://media3.picsearch.com/is?up47zMbB7V0x29jFP0Icqfnom1LW8JbK4j2f8EjXXew&height=256
+    [5] => http://media3.picsearch.com/is?7kdiD2tDdRsghMq8d8gXDi7z0pTWFeqWDeGCEu8A9zg&height=191
+    [6] => http://media1.picsearch.com/is?XqMTkXZdHXASCJuqLH3zCz1MaqaXU79PCnuZnYNoVfg&height=224
+    [7] => http://media4.picsearch.com/is?S-FIKeXFry3XPyFGEYJ09W8rzNleKZTIpn0CQKN7AD8&height=256
+    [8] => http://media1.picsearch.com/is?jiqV9t8A9vr1RXqgEwTcZRGQDv6wi1IN3Z3OZUC1V9w&height=224
+    [9] => http://media3.picsearch.com/is?r6hFU4mw30dIS1lckiDZqDRQJeogiExvK6UGoRmaubw&height=256
+    [10] => http://media3.picsearch.com/is?igUhCjCppmUowgCeNTSpmnE6bhqLZkA6DSyUrAgyd1s&height=217
+    [11] => http://media4.picsearch.com/is?3vNYxA_R0e78tHPUxt53rbdxBsqdvjWxU_yeHuRlxWg&height=240
+    [12] => http://media1.picsearch.com/is?zuq5xvzIKWA01iXg98OK4GQGNHfktWh8_IdVnpU0dYU&height=224
+    [13] => http://media5.picsearch.com/is?mWLEILEXlMkGMT7mDNp_3Mq4Eh99B7qRNbj8BGFvOqc&height=224
+    [14] => http://media4.picsearch.com/is?LGv-PyFL7eSdWdRdDiGZscyUavsq_OEiyhllvFVyV_8&height=216
+    [15] => http://media5.picsearch.com/is?OobQOrA_khgtYjXLj7bz9cdLyTw5Ab0r9jMHURkWDWI&height=240
+    [16] => http://media4.picsearch.com/is?kZhWrg9oBlS2pvM4qRVbemn0DGG7hdlR_T_Xg7ZRSmg&height=204
+    [17] => http://media5.picsearch.com/is?0n-RzugmZ513eyMJoXNNqQsXl_Tux8Kp9G9p9CeeG3g&height=239
+    [18] => http://media3.picsearch.com/is?zqp-Mhbrn4GdsLzngnW0J60rHUMEY3Bns3wmUP6NeTI&height=216
+    [19] => http://media2.picsearch.com/is?xAm1Omc_epEcbS-m83UZUe8HI0dLylQo5d_UvCGEoq4&height=231
+    [20] => http://media4.picsearch.com/is?dZY3a7YEKCQmeYuE4ibPKCf2ukR_WiHWkXw0uZqxmfY&height=240
+    [21] => http://media4.picsearch.com/is?SxwN2traJgVjRdUhnHMBL-0x-LkEvkVsHctNRe28GrQ&height=240
+    [22] => http://media2.picsearch.com/is?FvGdZQfkxj1B7ekitiFR-FrPzPzNPB9uFXfWb-xVcTg&height=204
+    [23] => http://media1.picsearch.com/is?SmXfjHuwg7tmbRJek3fFBmoPNQjq5rkGcyaqc9SbmLg&height=224
+    [24] => http://media2.picsearch.com/is?pT0cGSzg_HGog5E58laJqsorzSMKVTAv-d7nKs0PShA&height=240
+    [25] => http://media5.picsearch.com/is?6zWO6gffz3dq55s1ROcjMKHE6E1SUlcjiHoFzvlyKIM&height=224
+    [26] => http://media3.picsearch.com/is?Y7GRHXSn4A4FcQDDZcQrT3hfvfrnCWcPrSSw90soRJ0&height=227
+    [27] => http://media5.picsearch.com/is?DrbnE4vQeag6x1uiwuoXosW_-pFUdkYx3cFDVsu0EM0&height=240
+    [28] => http://media1.picsearch.com/is?YsO45JjXDlUVFmqAZ02Hxv__Fl5vBASJK1rnZIWLUlQ&height=224
+    [29] => http://media2.picsearch.com/is?Y1QWZyuEhHjn0I5gL0nU9MGAGw8jyXsQCNJ7o01fMco&height=225
+)
+</pre>
+<b>Note:</b> this bot scrape data from <a href="http://www.picsearch.com">PicSearch.com</a>. So this method doesn't use an API provided by PicSearch and should be used carefully, images may be protected by copyrights. If you are planning to use this function heavily, please, consider the possibility to cache the calls to avoid server congestion.
+</p>
+
+<hr/>
+
+
+<h3 id="notifyNma"><strong>notifyNma($apikey,$title,$text,$link="",$application="minibots")</strong> - <a href="#toc">top</a></h3>
+<p>The <code>notifyNma</code> need a free apikey that you can find on https://www.notifymyandroid.com/. This method need also that you install the Notify My Android app on your android device. With this app, the apikey and this code you will be able to send push notifications to your smartphone.<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$apikey</code> is your personal apikey. <code>$title</code>, <code>$text</code>, <code>$link</code> are the title, the text body and a link to redirect the user, and application is the "folder" of the notifications inside Notify My Android app.<br/>
+<b>output:</b> is true if ok or false if fails<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+if($mb->notifyNma("your-api-key", 
+	"Here it is!",
+	"This is just a test notification",
+	"http://www.barattalo.it",
+	"Minibots"
+)) echo "ok"; else echo "ko!";
+
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+ok
+</pre>
+Note: this bot calls the free api from <a href="https://www.notifymyandroid.com/">NotifyMyAndroid.com</a> which is free up to 5 notifications per day. More info on this service can be found <a href="https://www.notifymyandroid.com/api.jsp">here</a>. 
+</p>
+
+<hr/>
+
+
+<h3 id="pingomatic"><strong>pingomatic($title,$url,$feed="")</strong> - <a href="#toc">top</a></h3>
+<p>The <code>pingomatic</code> method uses <a href="http://pingomatic.com/">Ping-O-Matic</a> free service to spread links to rpc pingomatic services that should help bloggers to spread their contents to search engines and indexing services. You can use both for your blog homepage or for any url.<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$title</code> is the title of the page in <code>$url</code> parameter. <code>$feed</code> is an optional parameter to push your rss feed to services.<br/>
+<b>output:</b> is true if ok or false if fails<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+if($mb->pingomatic("Barattalo","http://www.barattalo.it","http://www.barattalo.it/feed/")) 
+	echo "ok"; 
+else 
+	echo "ko!";
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+ok
+</pre>
+</p>
+
+<hr/>
+
+
+
+
+
+
+
+
+
+
+
+<h3 id="getInstagramPics"><strong>getInstagramPics($user)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>getInstagramPics</code> method fetch data from Instagram.com, by parsing the json included in the instagram user page. Gets public data about the user, its counts of media, followers and followed by, and the last pics of the user. Last pics includes link to the instagram photo page, different sizes pictures and like counts. There is also the description of the images.<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$user</code> is the Instagram username to find.<br/>
+<b>output:</b> a complete array with all data or false if fails<br/>
+</p>
+<pre>
+&lt;?php
+$data = $mb->getInstagramPics("giuliopons");
+if(is_array($data)) {
+	echo "This is ".
+		($data["user"]->full_name ? $data["user"]->full_name : $data["user"]->username).
+		", followed by ".$data["user"]->counts->followed_by.
+		"&lt;br/&gt;Last pics:&lt;br/&gt;";
+	if(!empty($data["pics"])) {
+		foreach($data["pics"] as $img) {
+			echo "&lt;img src=\"".$img["thumbnail"]."\" width='150'/&gt;";
+		}
+	} else {
+		echo "No pohtos to show.";
+	}
+} else {
+	echo "Nothing found.";
+}
+
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+This is Giulio Pons, followed by 657&lt;br&gt;
+Last pics:&lt;br&gt;
+&lt;img src="http://distilleryimage7.s3.amazonaws.com/f35904c84a1111e3b0ef12eff38310dc_5.jpg" width="150"&gt;
+&lt;img src="http://distilleryimage3.s3.amazonaws.com/0b3db0824a0011e38e4d0a7011810191_5.jpg" width="150"&gt;
+&lt;img src="http://distilleryimage10.s3.amazonaws.com/08d1082a49fc11e395eb126dff410949_5.jpg" width="150"&gt;
+&lt;img src="http://distilleryimage9.s3.amazonaws.com/0c5cbff6447611e3999722000a1fcf03_5.jpg" width="150"&gt;
+&lt;img src="http://distilleryimage10.s3.amazonaws.com/a47d43e2447511e3a99f22000ab5bc02_5.jpg" width="150"&gt;
+&lt;img src="http://distilleryimage5.s3.amazonaws.com/c920a0d643df11e391a022000a9f13ef_5.jpg" width="150"&gt;
+&lt;img src="http://distilleryimage0.s3.amazonaws.com/d56aa08643de11e3902222000a1fa52b_5.jpg" width="150"&gt;
+&lt;img src="http://distilleryimage5.s3.amazonaws.com/75c2834a439f11e3af3822000ae802ec_5.jpg" width="150"&gt;
+&lt;img src="http://distilleryimage10.s3.amazonaws.com/62e5eeb6430811e3a49a22000aeb0bdf_5.jpg" width="150"&gt;
+&lt;img src="http://distilleryimage4.s3.amazonaws.com/bdcc067442fb11e3a5a022000ae9129a_5.jpg" width="150"&gt;
+&lt;img src="http://distilleryimage1.s3.amazonaws.com/4c84536e42fa11e3afd722000a1f98d6_5.jpg" width="150"&gt;
+&lt;img src="http://distilleryimage9.s3.amazonaws.com/c795c01842f211e393e422000a1fbe78_5.jpg" width="150"&gt;
+&lt;img src="http://distilleryimage5.s3.amazonaws.com/6f87bd4642f111e3803822000ae90265_5.jpg" width="150"&gt;
+&lt;img src="http://distilleryimage1.s3.amazonaws.com/efd99456426511e3842f22000aeb3ed0_5.jpg" width="150"&gt;
+&lt;img src="http://distilleryimage8.s3.amazonaws.com/7f57a69a3f2311e39b6f22000ae91215_5.jpg" width="150"&gt;
+&lt;img src="http://distilleryimage1.s3.amazonaws.com/596aa0123f1a11e3839022000ab5bd98_5.jpg" width="150"&gt;
+&lt;img src="http://distilleryimage3.s3.amazonaws.com/8798bb383cd911e3bacd22000a9e08df_5.jpg" width="150"&gt;
+&lt;img src="http://distilleryimage5.s3.amazonaws.com/d340aa8e38db11e39b6c22000ab5c529_5.jpg" width="150"&gt;
+&lt;img src="http://distilleryimage8.s3.amazonaws.com/c5163c0838db11e3951022000aeb0ce5_5.jpg" width="150"&gt;
+&lt;img src="http://distilleryimage10.s3.amazonaws.com/b14f272e38d211e38ff222000a1fb6c5_5.jpg" width="150"&gt;
+</pre>
+<p>
+<b>Note:</b> this bot scrape only public data, available on the web, from <a href="http://www.instagram.com">instagram.com</a>, this method doesn't use an API provided by Instagram and so should be used carefully, images may be protected by copyrights. If you are planning to use this function heavily, please, consider the possibility to cache the calls to avoid server congestion and limit the number of calls. Remember that you can get this functionalities with the instagram API with more complex interaction but also with more data. 
+</p>
+
+<hr/>
+
+
+
+
+
+<h3 id="twitterInfo"><strong>twitterInfo($nick)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>twitterInfo</code> method fetch data of a user from its public twitter profile. It doesn't use oAuth.<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$nick</code> is the twitter username to search for.<br/>
+<b>output:</b> an array with following, followers and tweets.<br/>
+</p>
+<pre>
+&lt;?php
+$data = $mb->twitterInfo("dailybestnet");
+print_r($data);
+
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+Array
+(
+    [tweets] => 1138
+    [following] => 271
+    [followers] => 523
+    [avatar] => https://pbs.twimg.com/profile_images/2042481207/Schermata_04-2456023_alle_15.27.41_bigger.png
+)</pre>
+<p>
+<b>Note:</b> this bot scrape only public data, available on the web, from <a href="http://www.instagram.com">instagram.com</a>, this method doesn't use an API provided by Instagram and so should be used carefully, images may be protected by copyrights. If you are planning to use this function heavily, please, consider the possibility to cache the calls to avoid server congestion and limit the number of calls. Remember that you can get this functionalities with the instagram API with more complex interaction but also with more data. 
+</p>
+
+<hr/>
+
+
+
+
+
+<h3 id="getPage"><strong>getPage($url)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>getPage</code> method is a facilities for making a cURL call and retrieve a page.<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$url</code> is the target page to retrieve<br/>
+<b>output:</b> the html of the target page<br/>
+</p>
+
+<hr/>
+
+
+<h3 id="findLinks"><strong>findLinks($url, $web_page, $FOLLOW_EXTERNAL=false, $SKIP_EXTENSIONS="")</strong> - <a href="#toc">top</a></h3>
+<p>The <code>findLinks</code> method lets you scrape from <code>$web_page</code> that was grabbed from <code>$url</code> all the links contained in the page, this method gives you clean urls, correctly encoded, absolute, skipping duplicates.<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$url</code> is the address where you got <code>$web_page</code> html, <code>$FOLLOW_EXTERNAL</code> lets you skip or include external urls, and <code>$SKIP_EXTENSIONS</code> lets you skip links to zip, jpg, or other files you don't want to retrieve.<br/>
+<b>output:</b> the array with the links<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+$target = "http://www.barattalo.it/mini-bots-php-class/";
+$page = $mb->getPage($target);
+$links = $mb->findLinks($target,$page);
+print_r($links);
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+Array
+(
+    [0] => http://www.barattalo.it/
+    [1] => http://www.barattalo.it/top-stories-plugin-widget/
+    [2] => http://www.barattalo.it/social-pop-widget-for-wordpress/
+    [3] => http://www.barattalo.it/mini-bots-php-class/
+    [4] => http://www.barattalo.it/feed
+    [5] => http://www.barattalo.it/demo/minibots.php
+    [6] => http://www.barattalo.it/demo/minibots/test.php
+    [7] => http://www.barattalo.it/tag/crawling/
+    [8] => http://www.barattalo.it/tag/minibots/
+    [9] => http://www.barattalo.it/tag/spider/
+    [10] => http://www.barattalo.it/tag/web-bots/
+    [11] => http://www.barattalo.it/mini-bots-php-class/comment-page-1/#comments
+    [12] => http://www.barattalo.it/author/admin/
+    [15] => http://www.barattalo.it/mini-bots-php-class/#respond
+    [16] => http://www.barattalo.it/category/css/
+    [17] => http://www.barattalo.it/category/facebook-connect/
+    [18] => http://www.barattalo.it/category/google-maps/
+    [19] => http://www.barattalo.it/category/html/
+    [20] => http://www.barattalo.it/category/javascript/
+    [21] => http://www.barattalo.it/category/mssql/
+    [22] => http://www.barattalo.it/category/mysql/
+    [23] => http://www.barattalo.it/category/other/
+    [24] => http://www.barattalo.it/category/php/
+    [25] => http://www.barattalo.it/category/spiders-webbots/
+    [26] => http://www.barattalo.it/category/uncategorized/
+    [27] => http://www.barattalo.it/category/wordpress-2/
+    [28] => http://www.barattalo.it/?p=736
+    [29] => http://www.barattalo.it/?p=359
+    [30] => http://www.barattalo.it/?p=718
+    [31] => http://www.barattalo.it/?p=585
+    [32] => http://www.barattalo.it/?p=292
+    [48] => http://www.barattalo.it/category/asp/
+)
+</pre>
+</p>
+
+<hr/>
+
+
+<h3 id="findLinks"><strong>findLinks($url, $web_page, $FOLLOW_EXTERNAL=false, $SKIP_EXTENSIONS="")</strong> - <a href="#toc">top</a></h3>
+<p>The <code>findLinks</code> method lets you scrape from <code>$web_page</code> that was grabbed from <code>$url</code> all the links contained in the page, this method gives you clean urls, correctly encoded, absolute, skipping duplicates.<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$url</code> is the address where you got <code>$web_page</code> html, <code>$FOLLOW_EXTERNAL</code> lets you skip or include external urls, and <code>$SKIP_EXTENSIONS</code> lets you skip links to zip, jpg, or other files you don't want to retrieve.<br/>
+<b>output:</b> the array with the links<br/>
+<pre>
+&lt;?php
+$mb = new Minibots();
+$target = "http://www.barilla.it/contattaci";
+$page = $mb->getPage($target);
+$emails = $mb->findEmails($page);
+print_r($emails);
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+Array
+(
+    [0] => webline@barilla.it
+    [1] => webline@mail.barilla.it
+)
+</pre>
+</p>
+
+<hr/>
+
+<h3 id="makeabsolute"><strong>makeabsolute($url,$link)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>makeabsolute</code> should be used when parsing a page, since sometimes in html url can be written with relative paths, this method let you transform a (probably) relative <code>$link</code> found in the <code>$url</code> page in an absolute url. This method is used in the <code>findLinks</code> function and is made <code>public</code> because it can be useful.<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$url</code> is the url of the page and <code>$link</code> is the maybe relative link to make absolute.<br/>
+<b>output:</b> the absolute url<br/>
+</p>
+<hr/>
+
+
+<h3 id="attr"><strong>function attr($s,$attrname)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>attr</code> should be used when parsing html code to retrieve the value of an attribure, <code>$s</code> is the partial portion of html that you're analyzing with regular expression and <code>$attrname</code> is the attribute you want to retrieve.<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$s</code> is the html and <code>$attrname</code> is the target attribute to retrieve.<br/>
+<b>output:</b> the value of the attribute<br/>
+<br/>
+In this example it's shown how to get the attribute of a meta tag from a list of meta tags:
+<pre>
+&lt;?
+$web_page = $mb->getPage("http://www.barattalo.it");
+preg_match_all('#<meta([^>]*)(.*)>#Uis', $web_page, $meta_array);
+for($i=0;$i<count($meta_array[0]);$i++) {
+	if (strtolower($mb->attr($meta_array[0][$i],"name"))=='description') {
+		$d = trim($mb->attr($meta_array[0][$i],"content"));
+		echo $d;
+	}
+}
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+Wordpress plugins, code snippets, classes and other stuff for developers
+</pre>
+</p>
+<hr/>
+
+
+
+
+
+
+
+
+
+
+<h3 id="getInstagramPic"><strong>function getInstagramPic($url)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>getInstagramPic</code> method (sorry, the name is very similar to <ocde>getInstagramPics</code>) retrieve informations from Instagram from a specified image url. The instagram urls are like this: <code>http://instagram.com/p/hGfiSaSwzl/</code>. This function retrieves the page specified and parse the data included in json format.<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$url</code> is the url of the instagram pic to retrieve.<br/>
+<b>output:</b> the array of informations for the pic<br/>
+<br/>
+<pre>
+&lt;?
+$data = $mb->getInstagramPic("http://instagram.com/p/hGfiSaSwzl/");
+print_r($data);
+?&gt;
+</pre>
+
+<b>Example output:</b>
+As you can see in this example the output returns different sizes of image, the date (as unix timestamp), caption, likes (both count and data of users that have liked the picture), comments (both count and data of users), informations on owner and a flag for video (<b>didn't tested any instagram video with this code</b>).
+<pre>
+Array
+(
+    [low_resolution] => http://distilleryimage5.ak.instagram.com/41f084d8551811e38d2b12bbbb3e8362_6.jpg
+    [thumbnail] => http://distilleryimage5.ak.instagram.com/41f084d8551811e38d2b12bbbb3e8362_5.jpg
+    [standard] => http://distilleryimage5.ak.instagram.com/41f084d8551811e38d2b12bbbb3e8362_8.jpg
+    [date] => 1385304842
+    [caption] => Che facce!!
+    [likes] => stdClass Object
+        (
+            [count] => 7
+            [viewer_has_liked] => 
+            [nodes] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [user] => stdClass Object
+                                (
+                                    [username] => manufarris
+                                    [profile_pic_url] => http://images.ak.instagram.com/profiles/profile_54166051_75sq_1341766474.jpg
+                                )
+
+                        )
+
+                    [1] => stdClass Object
+                        (
+                            [user] => stdClass Object
+                                (
+                                    [username] => laraseregni
+                                    [profile_pic_url] => http://images.ak.instagram.com/profiles/profile_435303_75sq_1361099735.jpg
+                                )
+
+                        )
+
+                    [2] => stdClass Object
+                        (
+                            [user] => stdClass Object
+                                (
+                                    [username] => effy88
+                                    [profile_pic_url] => http://images.ak.instagram.com/profiles/profile_9252684_75sq_1315589711.jpg
+                                )
+
+                        )
+
+                    [3] => stdClass Object
+                        (
+                            [user] => stdClass Object
+                                (
+                                    [username] => dariazzz25
+                                    [profile_pic_url] => http://images.ak.instagram.com/profiles/profile_311577228_75sq_1381691871.jpg
+                                )
+
+                        )
+
+                    [4] => stdClass Object
+                        (
+                            [user] => stdClass Object
+                                (
+                                    [username] => binalogue
+                                    [profile_pic_url] => http://images.ak.instagram.com/profiles/profile_187443788_75sq_1341133987.jpg
+                                )
+
+                        )
+
+                    [5] => stdClass Object
+                        (
+                            [user] => stdClass Object
+                                (
+                                    [username] => tum_tum99
+                                    [profile_pic_url] => http://images.ak.instagram.com/profiles/profile_17864400_75sq_1325470189.jpg
+                                )
+
+                        )
+
+                    [6] => stdClass Object
+                        (
+                            [user] => stdClass Object
+                                (
+                                    [username] => sergiomande
+                                    [profile_pic_url] => http://images.ak.instagram.com/profiles/profile_12410964_75sq_1362438472.jpg
+                                )
+
+                        )
+
+                )
+
+        )
+
+    [comments] => stdClass Object
+        (
+            [nodes] => Array
+                (
+                )
+
+        )
+
+    [owner] => stdClass Object
+        (
+            [username] => giuliopons
+            [requested_by_viewer] => 
+            [profile_pic_url] => http://images.ak.instagram.com/profiles/profile_1279802_75sq_1318453811.jpg
+            [id] => 1279802
+            [followed_by_viewer] => 
+        )
+
+    [is_video] => 
+)
+</pre>
+
+
+<b>Note</b>: this bot scrape only public data, available on the web, from <a href="http://www.instagram.com">instagram.com</a>, this method doesn't use an API provided by Instagram and so should be used carefully, images may be protected by copyrights. If you are planning to use this function heavily, please, consider the possibility to cache the calls to avoid server congestion and limit the number of calls. Remember that you can get this functionalities with the instagram API with more complex interaction but also with more data. 
+</p>
+<hr/>
+
+
+
+
+<h3 id="getGravatar"><strong>function getGravatar( $email, $s = 80, $d = 'mm' )</strong> - <a href="#toc">top</a></h3>
+<p>The <code>getGravatar</code> method is based on the code from Gravatar.com found <a href="http://gravatar.com/site/implement/images/php/">here</a> and  lets you build the url to be used to find the avatar of a user from its email address. <br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$email</code> is the email address to find the avatar, <code>$s</code> is the size of each side of the avatar in pixel, <code>$d</code> is the type of avatar to use, since Gravatar supports different types (identicon, monsterid, wavatar, mm, 404), for more informations on this type of avatars read the original docs on Gravatar <a href="http://gravatar.com/site/implement/images/php/">here</a>.<br/>
+<b>output:</b> the url to use in an image src attribute<br/>
+<br/>
+<pre>
+&lt;?
+echo $mb-&gt;getGravatar("pons@rockit.it");
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+http://www.gravatar.com/avatar/da38a7bf4875e4e052ce87c3219b08a3?s=80&d=mm&r=
+</pre>
+</p>
+<hr/>
+
+
+
+
+
+<h3 id="getLinkedinCounter"><strong>function getLinkedinCounter($url)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>getLinkedinCounter</code> calls linkedin api and retrieves the count of shares of <code>$url</code> on Linkedin social newtwork.<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$url</code> to search for<br/>
+<b>output:</b> count of shares<br/>
+<br/>
+<pre>
+&lt;?
+echo $mb-&gt;getLinkedinCounter("http://www.barattalo.it/mini-bots-php-class/");
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+2
+</pre>
+</p>
+<hr/>
+
+
+
+
+
+
+<h3 id="getPinterestCounter"><strong>function getPinterestCounter($url)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>getPinterestCounter</code> calls pinterest api and retrieves the count of pins of <code>$url</code> on Pinterest social newtwork.<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$url</code> to search for<br/>
+<b>output:</b> count of times it was pinned<br/>
+<br/>
+<pre>
+&lt;?
+echo $mb-&gt;getPinterestCounter("http://www.dailybest.it/2013/12/12/celebrita-vip-sosia-personaggi-storici/");
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+1
+</pre>
+</p>
+<hr/>
+
+
+
+
+
+<h3 id="getGoogleBackLinks"><strong>function getGoogleBackLinks($url)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>getGoogleBackLinks</code> by searching with Google api. For example for www.rockit.it it's the same result as searching on google search box <code>link:www.rockit.it</code>.<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$url</code> to search for<br/>
+<b>output:</b> count of back links<br/>
+<br/>
+<pre>
+&lt;?
+echo $mb-&gt;getGoogleBackLinks("www.rockit.it");
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+43
+</pre>
+</p>
+<hr/>
+
+
+
+
+<h3 id="getGoogleBackLinks"><strong>function getGoogleIndexedPages($url)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>getGoogleIndexedPages</code> by searching with Google api. For example for www.barattalo.it it's the same result as searching on google search box <code>site:www.barattalo.it</code>.<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$url</code> to search for<br/>
+<b>output:</b> count of urls indexed from the specified domain<br/>
+<br/>
+<pre>
+&lt;?
+echo $mb-&gt;getGoogleIndexedPages("www.barattalo.it");
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+299
+</pre>
+</p>
+<hr/>
+
+
+
+
+<h3 id="getImageGoogle"><strong>function getImageGoogle($k)</strong> - <a href="#toc">top</a></h3>
+<p>The <code>getImageGoogle</code> method search images on Google by keyword. It scrapes data from html, it doesn't use any api, so use it carefully.<br/>
+<b>Usage:</b><br/>
+<b>input params:</b> <code>$k</code> is the keyword to search for<br/>
+<b>output:</b> array of max 20 pics<br/>
+<br/>
+<pre>
+&lt;?
+print_r($mb-&gt;getImageGoogle("funny face"));
+?&gt;
+</pre>
+<b>Example output:</b>
+<pre>
+Array
+(
+    [0] => http://t3.gstatic.com/images?q=tbn:ANd9GcSB9u5vlSxX_xgJHqMr5wU605aADiipsLuB5bKff4Tz9NhY3nCtPW7dsbsn
+    [1] => http://t1.gstatic.com/images?q=tbn:ANd9GcTEeZVCikIsuO6r7LjqPN0dmccO7Dq1lcko7xIKw2qzLqg9wwWxMs-3ya0
+    [2] => http://t2.gstatic.com/images?q=tbn:ANd9GcQBogx87vWfbv5lDpv3-Z-q4MKXTg08t9BDU15QuUkejj0wifOd0Ym7M58
+    [3] => http://t0.gstatic.com/images?q=tbn:ANd9GcQKs774RMa8ohCuGhkDCidSA44JZMsJQBHGL_M6V8ma5T7uRc8L83qol0PN
+    [4] => http://t3.gstatic.com/images?q=tbn:ANd9GcTKLKKjgPlPj_dzPmqFW6xw6jhL0HpsZDjitvIlBmJg5fXnaS-gipxPa4g
+    [5] => http://t3.gstatic.com/images?q=tbn:ANd9GcQhJjAQDyUb-jPdexe8FwBH3eLKv1ool1yXIy8_zIpIz1D1xsjaEjX2KQ
+    [6] => http://t3.gstatic.com/images?q=tbn:ANd9GcQsjWrgTo5g1dYS3jqnB4q7oXVPXLDVH1XT7ScilrfoHXqjkgEyzRbh3pg
+    [7] => http://t3.gstatic.com/images?q=tbn:ANd9GcTtbzqH0n7G7L1ddTkMXiKU6Dl1DKs7PnG_kuFraVHKDN4MEMvsGJnq0Q
+    [8] => http://t3.gstatic.com/images?q=tbn:ANd9GcQJaEPk23gwkNvvjj8QibuXw1hFDDMvgZybUXwqC_FMPH6sv1BINlgjW51X
+    [9] => http://t1.gstatic.com/images?q=tbn:ANd9GcTTc6O1miAJobue7fo7WsNCH-MZ1yYheWUGuGeb_62rJN7HH3Nk2ovyTFbi
+    [10] => http://t0.gstatic.com/images?q=tbn:ANd9GcQhqNUe7c_KdZA47lggnB_uuakgeVgnd8muQgKG42HCRQ5f-CY1EW-4KQ
+    [11] => http://t3.gstatic.com/images?q=tbn:ANd9GcRKERtUdv5DY3U74N7KfgKebdwXImkbhgzCKUYz6kQ_hHFyThsG7vnaGc4
+    [12] => http://t0.gstatic.com/images?q=tbn:ANd9GcRuO6USaO7ic-JMUaWs5WyV_Fht5Mo-V0CWZkw4j-l6iz989JZ_9yFJuoxy
+    [13] => http://t2.gstatic.com/images?q=tbn:ANd9GcRyOJh8Opy3WsXDEWnMN_BHRAbcV5T24VKLiitWdgs2T_94CC-JUwOsjdls
+    [14] => http://t1.gstatic.com/images?q=tbn:ANd9GcQ9-fK4ApBN6BxbowBGoLflyRr8VjA70-oVptaK24K7_qDMjAd3rOcnBRrA
+    [15] => http://t3.gstatic.com/images?q=tbn:ANd9GcQGmTFnNESjp74LV-qROm_NIMdOMOTC74rSiCxwpu5MGjOjctQbUtfXrPE
+    [16] => http://t2.gstatic.com/images?q=tbn:ANd9GcSLA_5qjWAnbWRIvLrTWBv5zXUWRq2bpTyavzd9mDrNmG714gGMISaNOHA
+    [17] => http://t0.gstatic.com/images?q=tbn:ANd9GcRjkyNYvyH7Zu012xPKE8E_KoTC9qNAUjYYI1x-r_tCIIUSG54wIH4Z4g
+    [18] => http://t0.gstatic.com/images?q=tbn:ANd9GcQnDB8pk1ay6qaxYMuDaLUV-eM0GMeKGHF7Sw_9WheswAiU5iTzQ6tvXQ
+    [19] => http://t0.gstatic.com/images?q=tbn:ANd9GcSBtERrWhNloO3K2e0dzpUbtrWLBBF_TfAGsiGmv80LelTKKr4_6a8vTno
+)
+
+</pre>
+<b>Note:</b> this bot scrape data from <a href="http://www.google.com">Google.com</a>. So this method doesn't use an API provided by Google and should be used carefully, images may be protected by copyrights. If you are planning to use this function heavily, please, consider the possibility to cache the calls to avoid server congestion, consider also to make a check on Google to find an allowed api provided by Google.
+</p>
+
+<hr/>
+
+
+
+
+
+
+
+<h3 id="history"><strong>D) History version</strong> - <a href="#toc">top</a></h3>
+<p><b>v. 3.1</b> addedd getImage, getExchangeRateFromTo, notifyNma, pingomatic</p>
+<p><b>v. 3.2</b> addedd getInstagramPics, twitterInfo, getPage, findLinks, findEmails, makeAbsolute, attr</p>
+<p><b>v. 3.3</b> addedd getInstagramPic, getGravatar, getLinkedinCounter, getPinterestCounter, getGoogleBackLinks, getGoogleIndexedPages, getImageGoogle</p>
+
+					
+
+<br/>
+</p>
+
+
+
+<hr/>
+		
+		
+		<p>Once again, thank you so much for purchasing this theme. As I said at the beginning, I'd be glad to help you if you have any questions relating to this theme. No guarantees, but I'll do my best to assist. If you have a more general question relating to the themes on ThemeForest, you might consider visiting the forums and asking your question in the "Item Discussion" section.</p> 
+		
+		<p class="append-bottom alt large"><strong>Your Name</strong></p>
+		<p><a href="#toc">Go To Table of Contents</a></p>
+		
+		<hr class="space">
+	</div><!-- end div .container -->
+</body>
+</html>
